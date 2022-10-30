@@ -169,7 +169,7 @@ workflows:
       #       branches:
       #         only: [circleci-project-setup]
       - deploy-infrastructure:
-          requires: [test-frontend, test-backend]
+          requires: [build-frontend, build-backend]
           filters:
             branches:
               only: [circleci-project-setup]
