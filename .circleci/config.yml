@@ -207,7 +207,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
@@ -215,7 +215,6 @@ jobs:
           command: |
             # your code here
             yum install -y tar gzip 
-            yum install -y nodejs npm --enablerepo=epel
       - run:
           name: Get backend url
           command: |
@@ -234,17 +233,17 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - add_ssh_keys:
           fingerprints: ["a3:bf:b4:9a:4b:90:27:10:1c:f1:24:d8:72:67:e2:b6:5e:2d:31:ce"]
       # attach workspace
-      # - run:
-      #     name: Install dependencies
-      #     command: |
-      #       # your code here
-      #       yum install -y tar gzip nodejs npm
+      - run:
+          name: Install dependencies
+          command: |
+            # your code here
+            yum install -y tar gzip 
       - run:
           name: Deploy backend
           command: |
