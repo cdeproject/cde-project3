@@ -214,7 +214,8 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y tar gzip nodejs npm
+            yum install -y tar gzip 
+            yum install -y nodejs npm --enablerepo=epel
       - run:
           name: Get backend url
           command: |
@@ -239,11 +240,11 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["a3:bf:b4:9a:4b:90:27:10:1c:f1:24:d8:72:67:e2:b6:5e:2d:31:ce"]
       # attach workspace
-      - run:
-          name: Install dependencies
-          command: |
-            # your code here
-            yum install -y tar gzip nodejs npm
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       # your code here
+      #       yum install -y tar gzip nodejs npm
       - run:
           name: Deploy backend
           command: |
