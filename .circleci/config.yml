@@ -150,15 +150,15 @@ jobs:
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
-      - run:
-          name: Ensure front-end infrastructure exist
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/files/frontend.yml \
-              --tags project=project3 \
-              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
-              #exit 1
+      # - run:
+      #     name: Ensure front-end infrastructure exist
+      #     command: |
+      #       aws cloudformation deploy \
+      #         --template-file .circleci/files/frontend.yml \
+      #         --tags project=project3 \
+      #         --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+      #         --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+      #         #exit 1
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -196,9 +196,12 @@ jobs:
           name: Configure server
           command: |
             pwd
-            ls -la
+            ls -la         
             cd .circleci/ansible
-            ansible-playbook -i ~/inventory.txt configure-server.yml
+            cat ~/inventory.txt > inventory.txt
+            pwd
+            ls -la
+            ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment
 
   run-migrations:
@@ -274,6 +277,7 @@ jobs:
           name: Deploy backend
           command: |
             # your code here
+            cat ~/inventory.txt > inventory.txt
             cd backend
             npm i
             npm run build
