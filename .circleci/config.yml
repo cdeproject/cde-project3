@@ -287,7 +287,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update curl
+            yum -y install tar gzip curl
       # - run:
       #     name: Backend smoke test.
       #     command: |
