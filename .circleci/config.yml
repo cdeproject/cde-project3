@@ -8,7 +8,6 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-            # Your code here
             aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
@@ -22,13 +21,13 @@ commands:
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS = 1
-            # if(( $SUCCESS==1 )); 
-            # then
-            # #  cd ~/project/backend
-            # #  npm install
-            # #  Add revert code here. You can find this in the Getting Started section.
-            #   exit 1
-            # fi            
+            if(( $SUCCESS==1 )); 
+            then
+              cd ~/project/backend
+              npm install
+              #  Add revert code here. You can find this in the Getting Started section.
+              exit 1
+            fi            
 
 jobs:
   build-frontend:
