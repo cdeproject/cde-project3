@@ -168,7 +168,7 @@ jobs:
             echo [all] > inventory.txt
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --filters "Name=tag:project3,Values=udacity" \
+              --filters "Name=tag:project3" \
               --output text >> inventory.txt
             pwd
             ls -la
