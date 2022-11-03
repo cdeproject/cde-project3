@@ -185,13 +185,13 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: ["a3:bf:b4:9a:4b:90:27:10:1c:f1:24:d8:72:67:e2:b6:5e:2d:31:ce"]
-      - attach_workspace:
-          at: ~/
       - run:
           name: Install dependencies
           command: |
             # Your code here
             yum -y install tar gzip
+      - attach_workspace:
+          at: ~/
       - run:
           name: Configure server
           command: |
