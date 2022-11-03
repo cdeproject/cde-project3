@@ -189,7 +189,7 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            yum -y install tar gzip
+            apk add --update ansible 
       - attach_workspace:
           at: ~/
       - run:
