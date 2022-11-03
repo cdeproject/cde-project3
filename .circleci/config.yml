@@ -62,7 +62,6 @@ jobs:
             cd backend
             npm install
             npm run build
-            # exit 1
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
@@ -181,7 +180,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: amazon/aws-cli
     steps:
       - checkout
       - add_ssh_keys:
