@@ -6,7 +6,7 @@
 
 - name: Copy backend page
   copy:
-    src: "artifact.tar.gz"
+    src: "roles/deploy/files/artifact.tar.gz"
     dest: "~/web/artifact.tar.gz"
     backup: yes
 
