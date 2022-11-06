@@ -6,11 +6,12 @@
 
 - name: Get path
   shell: |
+    echo "pwd"
     pwd
 
 - name: Copy backend page
   copy:
-    src: "artifact.tar.gz"
+    src: "/root/project/artifact.tar.gz"
     dest: "~/web/artifact.tar.gz"
     backup: yes
 
