@@ -8,9 +8,11 @@
   copy:
     src: "artifact.tar.gz"
     dest: "~/web/artifact.tar.gz"
+    backup: yes
 
 - name: Executing node
   shell: |
     cd ~/web
+    tar -xzf artifact.tar.gz
     pm2 stop default
     pm2 start npm -- start
