@@ -110,6 +110,7 @@ jobs:
           command: |
             # Your code here
             cd frontend
+            rm -rf package-lock.json
             npm install
             npm install oauth-sign@^0.9.0
             npm audit fix --audit-level=critical --force
@@ -128,6 +129,7 @@ jobs:
           command: |
             # Your code here
             cd backend
+            rm -rf package-lock.json
             npm install
             npm install oauth-sign@^0.9.0
             npm audit fix --audit-level=critical --force
