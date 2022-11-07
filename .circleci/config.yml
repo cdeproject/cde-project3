@@ -231,6 +231,7 @@ jobs:
 
             fi
             #exit 1
+      - destroy-environment
 
   deploy-frontend:
     docker:
@@ -403,12 +404,12 @@ workflows:
           requires: [build-frontend, build-backend]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
       - deploy-frontend:
-          requires: [run-migrations]
+          requires: [configure-infrastructure]
       - deploy-backend:
-          requires: [run-migrations]              
+          requires: [configure-infrastructure]              
       # - smoke-test:
       #     requires: [deploy-infrastructure]     
       # - cloudfront-update:
