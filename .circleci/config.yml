@@ -242,7 +242,8 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y tar gzip nodejs npm
+            yum install -y tar gzip 
+            yum install -y nodejs npm
       - run:
           name: Get backend url
           command: |
