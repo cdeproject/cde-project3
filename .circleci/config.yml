@@ -235,14 +235,16 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: sleavely/node-awscli:14.x
+      - image: python:3.11-rc-alpine
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y tar gzip 
+            apk add --update tar gzip 
+            apk add --update nodejs npm        
+            apk add --update awscli    
       - run:
           name: Get backend url
           command: |
