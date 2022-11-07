@@ -243,7 +243,6 @@ jobs:
           command: |
             # your code here
             yum install -y tar gzip 
-            yum install -y nodejs npm
       - run:
           name: Get backend url
           command: |
@@ -406,8 +405,8 @@ workflows:
           requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [configure-infrastructure]
+      # - deploy-frontend:
+      #     requires: [configure-infrastructure]
       - deploy-backend:
           requires: [configure-infrastructure]              
       # - smoke-test:
@@ -415,7 +414,7 @@ workflows:
       # - cloudfront-update:
       #     requires: [smoke-test] 
       - cloudfront-update:
-          requires: [deploy-backend, deploy-frontend] 
+          requires: [deploy-backend] 
       - cleanup:
           requires: [cloudfront-update]  
                   
