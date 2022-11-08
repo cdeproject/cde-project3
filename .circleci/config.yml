@@ -215,10 +215,16 @@ jobs:
           command: |
             # Your code here
             cd backend
+            echo "--------clean --force--------"
             npm cache clean --force
-            npm install typescript
+            echo "--------install typescript--------"
+            npm install -g typescript
+            echo "--------tsc --version--------"
+            tsc --version
+            echo "--------install dependencies--------"
             npm install
             # Run and save the migration output
+            echo "--------run migrations--------"
             npm run migrations > migrations_dump.txt
             #exit 1
       - run:
