@@ -218,7 +218,7 @@ jobs:
             echo "--------clean --force--------"
             npm cache clean --force
             echo "--------install typescript--------"
-            npm install -g typescript
+            npm install typescript
             echo "--------tsc --version--------"
             tsc --version
             echo "--------install dependencies--------"
