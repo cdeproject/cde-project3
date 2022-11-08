@@ -223,13 +223,12 @@ jobs:
             # tsc --version
             echo "--------install dependencies--------"
             npm install
-            echo "--------get prefix--------"
-            npm config get prefix
-            ls
-            echo "--------export PATH--------"
-            export PATH="$PATH:"/usr/local/node_modules/.bin"";
+            # echo "--------get prefix--------"
+            # npm config get prefix
+            # ls
+            # echo "--------export PATH--------"
+            # export PATH="$PATH:"/usr/local/node_modules/.bin"";
             echo "--------tsc --version--------"
-            # cd node_modules/.bin
             pwd
             tsc --version
             # Run and save the migration output
