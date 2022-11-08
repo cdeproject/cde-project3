@@ -227,7 +227,7 @@ jobs:
             npm config get prefix
             ls
             echo "--------export PATH--------"
-            export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
+            export PATH="$PATH:"/usr/local/node_modules/.bin"";
             echo "--------tsc --version--------"
             # cd node_modules/.bin
             pwd
