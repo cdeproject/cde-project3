@@ -217,20 +217,15 @@ jobs:
             cd backend
             echo "--------clean --force--------"
             npm cache clean --force
-            # echo "--------install typescript--------"
-            # npm install typescript
-            # echo "--------tsc --version--------"
-            # tsc --version
             echo "--------install dependencies--------"
             npm install
-            # echo "--------get prefix--------"
-            # npm config get prefix
-            # ls
-            echo "--------export PATH--------"
-            export export PATH="$PATH:./node_modules/typescript/bin"
-            echo "--------tsc --version--------"
-            pwd
-            tsc --version
+            # echo "--------export PATH--------"
+            # export PATH="$PATH:./node_modules/typescript/bin"
+            # echo "--------tsc --version--------"
+            # pwd
+            # tsc --version
+            # echo "--------NODE_ENV--------"
+            echo $NODE_ENV
             # Run and save the migration output
             echo "--------run migrations--------"
             npm run migrations > migrations_dump.txt
