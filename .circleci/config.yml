@@ -223,6 +223,8 @@ jobs:
             # tsc --version
             echo "--------install dependencies--------"
             npm install
+            echo "--------get prefix--------"
+            npm config get prefix
             echo "--------tsc --version--------"
             cd node_modules/.bin
             pwd
