@@ -226,8 +226,8 @@ jobs:
             # echo "--------get prefix--------"
             # npm config get prefix
             # ls
-            # echo "--------export PATH--------"
-            # export PATH="$PATH:"/usr/local/node_modules/.bin"";
+            echo "--------export PATH--------"
+            export export PATH="$PATH:./node_modules/typescript/bin"
             echo "--------tsc --version--------"
             pwd
             tsc --version
