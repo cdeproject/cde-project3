@@ -225,6 +225,7 @@ jobs:
             npm install
             echo "--------get prefix--------"
             npm config get prefix
+            ls
             echo "--------export PATH--------"
             export PATH="$PATH:"/usr/local/lib/node_modules/node/bin"";
             echo "--------tsc --version--------"
