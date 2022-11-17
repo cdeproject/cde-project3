@@ -151,15 +151,15 @@ jobs:
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
               #exit 1
-      - run:
-          name: Ensure front-end infrastructure exist
-          command: |
-            aws cloudformation deploy \
-              --template-file .circleci/files/frontend.yml \
-              --tags project=project3 \
-              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
-              #exit 1
+      # - run:
+      #     name: Ensure front-end infrastructure exist
+      #     command: |
+      #       aws cloudformation deploy \
+      #         --template-file .circleci/files/frontend.yml \
+      #         --tags project=project3 \
+      #         --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+      #         --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+      #         #exit 1
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -215,8 +215,8 @@ jobs:
           command: |
             # Your code here
             cd backend
-            echo "--------clean --force--------"
-            npm cache clean --force
+            # echo "--------clean --force--------"
+            # npm cache clean --force
             echo "--------install dependencies--------"
             npm install
             # echo "--------export PATH--------"
@@ -225,7 +225,7 @@ jobs:
             # pwd
             # tsc --version
             # echo "--------NODE_ENV--------"
-            echo $NODE_ENV
+            # echo $NODE_ENV
             # Run and save the migration output
             echo "--------run migrations--------"
             npm run migrations > migrations_dump.txt
@@ -424,16 +424,16 @@ workflows:
       #     filters:
       #       branches:
       #         only: [circleci-project-setup]
-      # - deploy-infrastructure
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
+      - deploy-infrastructure
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
-      - run-migrations
+      # - run-migrations
       # - deploy-frontend:
       #     requires: [deploy-infrastructure]
-      # - deploy-backend:
-      #     requires: [run-migrations]              
+      - deploy-backend:
+          requires: [configure-infrastructure]              
       # - smoke-test:
       #     requires: [deploy-infrastructure]     
       # - cloudfront-update:
