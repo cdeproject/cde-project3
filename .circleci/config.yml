@@ -280,7 +280,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: python:3.11-rc-alpine
+      - image: python
     steps:
       - checkout
       - add_ssh_keys:
@@ -290,9 +290,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            # your code here
-            apk add --update ansible 
-            apk add --update nodejs npm
+            pip install ansible
+            pip install awscli
+            apt update && apt install nodejs npm tar gzip -y
       - run:
           name: Deploy backend
           command: |
