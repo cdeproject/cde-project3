@@ -297,8 +297,9 @@ jobs:
           name: Deploy backend
           command: |
             cd backend
+            pwd
             echo "--------npm i--------"
-            npm i
+            npm install --force
             echo "--------npm run build--------"
             npm run build
             echo "--------tar backend--------"
