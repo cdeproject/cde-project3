@@ -298,8 +298,9 @@ jobs:
           command: |
             cd backend
             pwd
+            ls -la
             echo "--------npm i--------"
-            npm install --force
+            npm install --legacy-peer-deps
             echo "--------npm run build--------"
             npm run build
             echo "--------tar backend--------"
