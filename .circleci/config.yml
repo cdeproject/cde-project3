@@ -256,7 +256,6 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            # your code here
             export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
@@ -265,11 +264,17 @@ jobs:
       - run:
           name: Deploy frontend objects
           command: |
-            # your code here
+            echo "--------cd frontend--------"
             cd frontend
+            pwd
+            echo "--------npm install--------"
             npm install
+            echo "--------npm run build--------"
             npm run build
+            echo "--------tar dist--------"
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
+            ls -la
+            echo "--------cp dist to s3--------"
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive 
 
   deploy-backend:
