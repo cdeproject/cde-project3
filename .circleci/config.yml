@@ -264,8 +264,6 @@ jobs:
             echo "--------cd frontend--------"
             cd frontend
             pwd
-            # echo "--------npm install webpack-cli -g--------"
-            # npm install webpack-cli -g
             echo "--------npm install--------"
             npm install
             echo "--------npm run build--------"
