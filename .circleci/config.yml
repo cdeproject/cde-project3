@@ -303,12 +303,16 @@ jobs:
             echo "TYPEORM_USERNAME=$TYPEORM_USERNAME" >> backend/.env
             echo "TYPEORM_PASSWORD=$TYPEORM_PASSWORD" >> backend/.env
             echo "TYPEORM_DATABASE=$TYPEORM_DATABASE" >> backend/.env
+            echo "--------cat .env--------"
+            cat backend/.env
       - run:
           name: Deploy backend
           command: |
             cd backend
             pwd
             ls -la
+            echo "--------npm install typescript -g--------"
+            npm install typescript -g
             echo "--------npm i--------"
             npm i 
             echo "--------npm run build--------"
