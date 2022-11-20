@@ -238,21 +238,18 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: python:3.11-rc-alpine
+      - image: circleci/node:13.8.0
     steps:
-      - checkout
-      - restore_cache:
-          keys: [frontend-build]      
+      - checkout      
       - attach_workspace:
           at: ~/
       - run:
           name: Install dependencies
           command: |
-            # your code here
-            apk add --update tar gzip 
-            apk add --update nodejs npm        
-            apk add --update python3 py3-pip
-            pip3 install awscli  
+            sudo apt-get update
+            sudo apt-get install python python-pip
+            pip install ansible 
+            pip install awscli
       - run:
           name: Get backend url
           command: |
@@ -267,8 +264,8 @@ jobs:
             echo "--------cd frontend--------"
             cd frontend
             pwd
-            echo "--------pm install webpack-cli -g--------"
-            npm install webpack-cli -g
+            # echo "--------npm install webpack-cli -g--------"
+            # npm install webpack-cli -g
             echo "--------npm install--------"
             npm install
             echo "--------npm run build--------"
