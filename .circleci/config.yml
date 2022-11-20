@@ -103,18 +103,18 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-scan]
+          keys: [frontend-build]
       - run:
           name: Run front-end scan
           command: |
-            # Your code here
             cd frontend
             npm install
-            # npm install oauth-sign@^0.9.0
             # npm audit fix --audit-level=critical --force
-            npm audit fix --force
-            npm audit --audit-level=critical
-            # exit 0
+            # npm audit fix --force
+            npm audit fix --audit-level=critical
+      - save_cache:
+          paths: [frontend/node_modules]
+          key: frontend-build
 
   scan-backend:
     docker:
@@ -122,18 +122,19 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-scan]
+          keys: [backend-build]
       - run:
           name: Run back-end scan
           command: |
-            # Your code here
             cd backend
             npm install
             # npm install oauth-sign@^0.9.0
             # npm audit fix --audit-level=critical --force
-            npm audit fix --force
-            npm audit --audit-level=critical
-            # exit 0
+            # npm audit fix --force
+            npm audit fix --audit-level=critical
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
 
   deploy-infrastructure:
     docker:
@@ -149,7 +150,6 @@ jobs:
               --tags project=project3 \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
-              #exit 1
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -158,11 +158,9 @@ jobs:
               --tags project=project3 \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
-              #exit 1
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            # Your code here
             cd .circleci/ansible 
             touch inventory.txt
             echo [backend] > inventory.txt
@@ -172,7 +170,6 @@ jobs:
             pwd
             ls -la
             cat inventory.txt
-            #exit 1
       - persist_to_workspace:
           root: ~/
           paths:
@@ -209,6 +206,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run migrations
           command: |
@@ -240,6 +239,8 @@ jobs:
       - image: python:3.11-rc-alpine
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -283,13 +284,27 @@ jobs:
             apk add --update ansible 
             apk add --update nodejs npm
       - run:
+          name: Add env
+          command: |
+            echo "NODE_ENV=$NODE_ENV" >> backend/.env
+            echo "VERSION=$VERSION" >> backend/.env
+            echo "TYPEORM_CONNECTION=$TYPEORM_CONNECTION" >> backend/.env
+            echo "TYPEORM_MIGRATIONS_DIR=$TYPEORM_MIGRATIONS_DIR" >> backend/.env
+            echo "TYPEORM_ENTITIES=$TYPEORM_ENTITIES" >> backend/.env
+            echo "TYPEORM_MIGRATIONS=$TYPEORM_MIGRATIONS" >> backend/.env
+            echo "TYPEORM_HOST=$TYPEORM_HOST" >> backend/.env
+            echo "TYPEORM_PORT=$TYPEORM_PORT" >> backend/.env
+            echo "TYPEORM_USERNAME=$TYPEORM_USERNAME" >> backend/.env
+            echo "TYPEORM_PASSWORD=$TYPEORM_PASSWORD" >> backend/.env
+            echo "TYPEORM_DATABASE=$TYPEORM_DATABASE" >> backend/.env
+      - run:
           name: Deploy backend
           command: |
             cd backend
             pwd
             ls -la
             echo "--------npm i--------"
-            npm i --force
+            npm i 
             echo "--------npm run build--------"
             npm run build
             echo "--------tar backend--------"
@@ -313,6 +328,8 @@ jobs:
           command: |
             # your code here
             yum -y install tar gzip curl
+      - attach_workspace:
+          at: ~/
       - run:
           name: Backend smoke test.
           command: |
